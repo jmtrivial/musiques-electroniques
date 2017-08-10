@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Éléments d'histoire de la musique électronique</title>
+		<style>
+
+		.node {
+			opacity: 0.4;
+		}
+
+		.node circle {
+		stroke: white;
+		stroke-width: 1.5px;
+		}
+
+		line {
+		stroke: black;
+		stroke-width: 1.5px;
+		stroke-opacity: 0.3;
+		}
+
+		text {
+		font: 8px sans-serif;
+		pointer-events: none;
+		}
+
+		body {
+			padding: 15px;
+		}
+		html, body, .page, .row, #graph {
+			height: 100%;
+		}
+		
+		#graph {
+			padding: 0; margin: 0;
+		}
+
+		#noeuds-voisins a:hover {
+			cursor: pointer;
+		}
+		
+		.videowrapper {
+			float: none;
+			clear: both;
+			width: 100%;
+			position: relative;
+			padding-bottom: 56.25%;
+			padding-top: 25px;
+			height: 0;
+		}
+		.videowrapper iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.img-responsive {
+			margin: auto;:
+		}
+		
+		
+		#uptotext {
+			position: fixed;
+			bottom: 1em;
+			right: 1em;
+		}
+		
+		@media  (min-width: 992px) {
+			#uptotext {
+				display: none;
+		};
+
+		</style>
+		
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+
+	</head>
+	<body>
+		<div class="page">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="page-header">
+						<h1><a href="/"><span class="glyphicon glyphicon-console" aria-hidden="true"></span></a> Éléments d'histoire de la musique électronique</h1>
+					</div>
+					<div class="panel panel-default" id="description">
+						<div class="panel-body">
+								<form>
+									<div class="form-group">
+										<select class="combobox form-control" id="description-list" name="e">
+										</select>
+									</div>
+								</form>
+								<div id="description-complete">
+								</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">À propos</h3>
+						</div>
+						<div class="panel-body">
+							<p>Cette représentation sous forme de <a href="https://fr.wikipedia.org/wiki/Carte_mentale">carte mentale</a> est le fruit de mes explorations personnelles,
+							et ne saurait être représentative de la diversité des courants artistiques 
+							évoqués, ou ignorés. Sauf indication contraire, les illustrations sont issues des wikipédia en langue française ou anglaise. Pour toute remarque, n'hésitez pas à me contacter à l'adresse
+							<a href="mailto:jm@jmfavreau.info">jm@jmfavreau.info</a>.</p>
+							<h4>Voir aussi</h4>
+							<p>Mes <a href="http://radio.jmfavreau.info">projets sonores</a> en cours et passés.</p>
+						</div>
+					</div>
+				</div>
+				<div id="graph" class="col-md-8"></div>
+			</div>
+		</div>
+		<div id="uptotext"><a title="Remonter à la description" href="#description" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"> </span></a></div>
+	</body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src='http://d3js.org/d3.v4.js'></script>
+		<script src='vis.js'></script>
+</html>
