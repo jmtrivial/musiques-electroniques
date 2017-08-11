@@ -50,9 +50,13 @@
 	{ "id":"murray.schafer", "name":"R. Murray Schafer", "type":"personne", "description":"<a href=\"https://fr.wikipedia.org/wiki/R._Murray_Schafer\">R. Murray Schafer</a> est un compositeur qui a développé le concept de <em>paysage sonore</em>, et qui a développé des techniques d'enregistrement et d'écoute proches du <strong>field recording</strong>.", "illustrationVideo":"<iframe src=\"https://www.youtube.com/embed/5q1rpNNnCUc\" frameborder=\"0\" allowfullscreen></iframe>" },
 	{ "id":"les.shadoks", "name":"Les Shadoks", "description":"<a href=\"https://fr.wikipedia.org/wiki/Les_Shadoks\">Les Shadoks</a> est une série télévisée d'animation française, produite par le <a href=\"https://fr.wikipedia.org/wiki/Service_de_la_recherche_de_la_RTF\">service de la recherche de la RTF</a>, une structure étendant le principe du <strong>GRM</strong>. La musique de la série, composée par <strong>Robert Cohen-Solal</strong> constitue un exemple très connu de musique concrète.", "refs": [ "livre-grm-50-ans" ] },
 	{ "id":"robert.cohen-solal", "name":"Robert Cohen-Solal", "type":"personne", "description":"<a href=\"https://fr.wikipedia.org/wiki/Robert_Cohen-Solal\">Robert Cohen-Solal</a> est compositeur, et collaborateur du <strong>GRM</strong>. Il a notamment composé la musique de la série télévisée <strong>les Shadoks</strong>.", "refs": [ "livre-grm-50-ans" ] },
-	{ "id":"juan.atkins", "name":"Juan Atkins", "type":"personne", "description":"<a href=\"https://fr.wikipedia.org/wiki/Juan_Atkins\">Juan Atkins</a> est considéré comme l'un des pères fondateurs de la techno." }
+	{ "id":"juan.atkins", "name":"Juan Atkins", "type":"personne", "description":"<a href=\"https://fr.wikipedia.org/wiki/Juan_Atkins\">Juan Atkins</a> est considéré comme l'un des pères fondateurs de la techno." },
+	{ "id":"boite.a.rythmes", "name":"boîte à rythmes", "type":"instrument", "description":"Une <a href=\"https://fr.wikipedia.org/wiki/Bo%C3%AEte_%C3%A0_rythmes\">boîte à rythmes</a> est un instrument de musique électronique permettant de reproduire des rythmes de batterie ou des lignes de basses. L'un des modèles mythiques est la Roland <a href=\"https://fr.wikipedia.org/wiki/Roland_TR-808\">TR-808</a>, que l'on reconnaît notamment dans l'album <em>Planet Rock</em> d'<strong>Afrika Bambaataa</strong>.", "illustrationVideo":"<iframe src=\"https://www.youtube.com/embed/zpFVbXFqDGI\" frameborder=\"0\" allowfullscreen></iframe>" },
+	{ "id":"jeff.mills", "name":"Jeff Mills", "type":"personne", "description":"<a href=\">https://fr.wikipedia.org/wiki/Jeff_Mills\">Jeff Mills</a> est une des figures incontournables de la scène techno. Originaire de Détroit, il a marqué le son des années 90. Jeff Mills est un DJ notamment connu pour la vitesse et la précision de ses enchaînements.", "illustrationVideo":"<iframe src=\"https://www.youtube.com/embed/RaZ3-MkXzx4\" frameborder=\"0\" allowfullscreen></iframe>" }
   ],
   "links": [
+    {"source": "jeff.mills", "target":"techno", "name":"est une figure incontournable de" },
+    {"source": "boite.a.rythmes", "target":"afrika.bambaataa", "name":"a été utilisé par" },
     {"source": "juan.atkins", "target": "cybotron", "name": "est un membre de" },
     {"source": "juan.atkins", "target": "techno", "name": "est considéré comme l'un des pères de" },
     {"source": "robert.cohen-solal", "target": "musique.concrete", "name": "est le compositeur de" },
@@ -124,6 +128,7 @@
     {"source": "pierre.henry", "target":"ondes.martenot", "name":"a composé pour" },
     {"source": "theremine", "target":"ondes.martenot", "name":"est un instrument contemporain de" },
     {"source": "sequenceur", "target":"midi", "name":"a vu son fonctionnement simplifié par" },
+    {"source": "boite.a.rythmes", "target":"midi", "name":"a vu son fonctionnement simplifié par" },
 	{"source": "sequenceur", "target":"techno", "name": "a été utilisé dans" }
   ],
   "refs": [
