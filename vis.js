@@ -43,7 +43,20 @@ function formatWithParticule2(a, b) {
 		var finalA = formatWithParticule1(a);
 		var finalB = formatWithParticule1(b);		
 
-		if (finalB == "le " && finalA.slice(-3) == "de ") {
+		if (finalB == "le " && finalA.slice(-2) == "à ") {
+			if (finalA.length == 2) {
+				return "du ";
+			}
+			else {
+				if (finalA.slice(-3) != " à ")
+					return finalA + finalB;
+				else {
+					var startA = finalA.substr(0, finalA.length - 3);
+					return startA + " au ";
+				}
+			}
+		}
+		else if (finalB == "le " && finalA.slice(-3) == "de ") {
 			if (finalA.length == 3) {
 				return "du ";
 			}
