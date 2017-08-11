@@ -8,13 +8,20 @@ function getParam(sname) {
     for (var i=0; i<params.length; i++)
        {
          temp = params[i].split("=");
-         if ( [temp[0]] == sname ) { sval = temp[1]; }
+         if ( [temp[0]] == sname ) { if (temp[1])
+										sval = temp[1]
+									else
+										sval = true; }
        }
   return sval;
 }
 
 function getSelectedElement() {
 	return getParam("e");
+}
+
+function getRefList() {
+	return getParam("refs");
 }
 
 function majFirstChar(a) {
@@ -102,6 +109,7 @@ d3.json("electronique.json", function(error, graph) {
 
 		
 	var selected = getSelectedElement();
+    var refList = getRefList();
 	/* */
 	addInMenus(graph.nodes);
 	
@@ -352,7 +360,78 @@ d3.json("electronique.json", function(error, graph) {
 		myY = viewerHeight / 2 - n.y * scale;
 		maing.attr("transform", "translate(" + myX + ", " + myY + ") scale(" + scale + ")");		
 	}
+	
+	var refToString = function(lr) {
+			
+		if (lr.type == "book") {
+			if (lr.url)
+				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em><a href=\"" + lr.url + "\">" + lr.title + "</a></em>, " + lr.editor + ", " + lr.date + "</li>";
+			else
+				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em>" + lr.title + "</em>, " + lr.editor + ", " + lr.date + "</li>";
+		}
+		else if (lr.type == "podcast") {
+			var d = "";
+			if (lr.date)
+				d = ", " + lr.date;
+			return "<li><a title=\"podcast\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "</li>";
+		}
+		else if (lr.type == "website") {
+			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> " + lr.title + "</a></li>";
+		}
+		else if (lr.type == "conference") {
+			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "</li>";
+		}
+		else if (lr.type == "discogs") {
+			return "<li><a title=\"discogs\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span> " + lr.title + "</a> sur Discogs</li>";
+		}
+		else {
+			return "<li>" + lr.title + "</li>";
+		}	
+	}
 
+	function getNameRefs(id, refsTitles) {
+		var result = "Références";
+		
+		refsTitles.forEach(function(rt) {
+			if (rt.id == id) {
+					result = rt.name;
+			}
+		});
+		return result;
+	}
+	listReferences = function(refs, refsTitles) {
+		clearPanel();
+		
+		$("#description-complete").append("<h3>Liste des références et liens</h3>");
+		
+		groups = {};
+		refs.forEach(function (o) {
+			if (!groups[o.type])
+				groups[o.type] = [];
+			groups[o.type].push(o);
+		});
+		
+		for(key in groups) {
+			$("#description-complete").append("<h4>" + getNameRefs(key, refsTitles) + "</h4>" );
+			groups[key].sort(function (e1, e2) {
+					return e1.name < e2.name;
+			});
+			var objectList = "<ul>";
+			
+			groups[key].forEach(function(e) {
+				objectList = objectList + refToString(e);
+			});
+				
+				
+			
+			objectList = objectList + "</ul>";
+			
+			$("#description-complete").append(objectList);
+		}
+
+		
+	}
+	
 	setSeletedElement = function (idElement) {
 		/* affichage latéral */
 		$("#description-list").val(idElement);  
@@ -462,40 +541,22 @@ d3.json("electronique.json", function(error, graph) {
 			n.refs.forEach(function (r) {
 				lr = refById["$" + r];
 				
-				if (lr.type == "book") {
-					if (lr.url)
-						rs.append("<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em><a href=\"" + lr.url + "\">" + lr.title + "</a></em>, " + lr.editor + ", " + lr.date + "</li>");
-					else
-						rs.append("<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em>" + lr.title + "</em>, " + lr.editor + ", " + lr.date + "</li>");
-				}
-				else if (lr.type == "podcast") {
-					var d = "";
-					if (lr.date)
-						d = ", " + lr.date;
-					rs.append("<li><a title=\"podcast\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "</li>");
-				}
-				else if (lr.type == "website") {
-					rs.append("<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> " + lr.title + "</a></li>");
-				}
-				else if (lr.type == "conference") {
-					rs.append("<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "</li>");
-				}
-				else if (lr.type == "discogs") {
-					rs.append("<li><a title=\"discogs\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span> " + lr.title + "</a> sur Discogs</li>");
-				}
-				else {
-					rs.append("<li>" + lr.title + "</li>");
-				}
+				rs.append(refToString(lr));
 				hasRefs = true;
 			});
 		}
 		if (hasRefs) {
-			$("#description-complete").append("<h4>Références et liens</h4>");
+			$("#description-complete").append("<h4>Références et liens <small></h4>");
 			$("#description-complete").append(rs);
 		}
 	}
 	
-	setSeletedElement(selected);
+	if (selected)
+		setSeletedElement(selected);
+	
+	if (refList) {
+		listReferences(graph.refs, graph.refstitles);
+	}
 	
 
 	

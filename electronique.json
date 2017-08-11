@@ -129,5 +129,13 @@
 	{ "id":"livre-machine-soul", "title":"Machine Soul : une histoire de la techno", "author":"Jon Savage", "editor":"Allia", "date":"2004", "type":"book" },
 	{ "id":"site-martenot", "title":"Les Ondes musicales Martenot", "url":"http://federation-martenot.fr/Les-Ondes-musicales-Martenot", "type":"website" },
 	{ "id":"hippie-hippie-shake-5", "title":"Hippie Hippie Shake (5/5) - Des hippies aux hipsters, les fruits du flower power", "url":"https://www.franceculture.fr/emissions/les-series-musicales-dete/hippie-hippie-shake-55-des-hippies-aux-hipsters-les-fruits-du", "type":"podcast" }
+  ],
+  "refstitles" : [
+	{ "id":"website", "name": "Sites internet" },
+	{ "id":"book", "name":"Livres" },
+	{ "id":"discogs", "name":"Pages discogs" },
+	{ "id":"conference", "name":"Conférences" },
+	{ "id":"podcast", "name":"Podcasts à écouter" }
+	
   ]
 }
