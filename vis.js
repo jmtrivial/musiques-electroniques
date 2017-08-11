@@ -399,7 +399,7 @@ d3.json("electronique.json", function(error, graph) {
 		});
 		return result;
 	}
-	listReferences = function(refs, refsTitles) {
+	listReferences = function(refs, refsTitles, logHistory = true) {
 		clearPanel();
 		
 		$("#description-complete").append("<h3>Liste des références et liens</h3>");
@@ -429,10 +429,14 @@ d3.json("electronique.json", function(error, graph) {
 			$("#description-complete").append(objectList);
 		}
 
-		
+		document.title = "Références et liens | Éléments d'histoire de la musique électronique";
+		if (logHistory) {
+			var stateObj = { refs: "" };
+			history.pushState(stateObj, "Références et liens", "/?refs");
+		}
 	}
 	
-	setSeletedElement = function (idElement) {
+	setSeletedElement = function (idElement, logHistory = true) {
 		/* affichage latéral */
 		$("#description-list").val(idElement);  
 		
@@ -447,15 +451,19 @@ d3.json("electronique.json", function(error, graph) {
 		
 		// changement de l'adresse
 		if (idElement == "") {
-			var stateObj = { e: "" };
-			history.pushState(stateObj, "Accueil", "/");
 			document.title = "Éléments d'histoire de la musique électronique";
+			if (logHistory) {
+				var stateObj = { e: "" };
+				history.pushState(stateObj, "Accueil", "/");
+			}
 		}
 		else {
-			var stateObj = { e: idElement };
-			history.pushState(stateObj, "idElement", "/?e=" + idElement);
 			var title = nodeById["$"+idElement].name;
 			document.title = "Éléments d'histoire de la musique électronique | " + title;
+			if (logHistory) {
+				var stateObj = { e: idElement };
+				history.pushState(stateObj, "idElement", "/?e=" + idElement);
+			}
 		}
 		
 		if (idElement == "") {
@@ -553,10 +561,8 @@ d3.json("electronique.json", function(error, graph) {
 	
 	if (selected)
 		setSeletedElement(selected);
-	
-	if (refList) {
-		listReferences(graph.refs, graph.refstitles);
-	}
+	if (refList)
+			listReferences(graph.refs, graph.refstitles);			
 	
 
 	
@@ -564,6 +570,20 @@ d3.json("electronique.json", function(error, graph) {
 		setSeletedElementCenter(this.value);
 	});
 
+	window.onpopstate =  function(event) {
+		selected = getSelectedElement();
+		refList = getRefList();
+		
+		if (selected)
+			setSeletedElement(selected, false);
+		else if (refList)
+			listReferences(graph.refs, graph.refstitles, false);
+		else {
+			setSeletedElement("", false);
+		}
+    };
+
+	
 });
 
 
