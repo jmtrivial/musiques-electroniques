@@ -91,6 +91,24 @@ function formatWithParticule3(a, b, c) {
 		return formatWithParticule2(finalA, c);
 }
 
+function normalizeString(s){
+	var r=s.toLowerCase();
+	r = r.replace(new RegExp("\\s", 'g'),"");
+	r = r.replace(new RegExp("[àáâãäå]", 'g'),"a");
+	r = r.replace(new RegExp("æ", 'g'),"ae");
+	r = r.replace(new RegExp("ç", 'g'),"c");
+	r = r.replace(new RegExp("[èéêë]", 'g'),"e");
+	r = r.replace(new RegExp("[ìíîï]", 'g'),"i");
+	r = r.replace(new RegExp("ñ", 'g'),"n");                            
+	r = r.replace(new RegExp("[òóôõö]", 'g'),"o");
+	r = r.replace(new RegExp("œ", 'g'),"oe");
+	r = r.replace(new RegExp("[ùúûü]", 'g'),"u");
+	r = r.replace(new RegExp("[ýÿ]", 'g'),"y");
+	r = r.replace(new RegExp("\\W", 'g'),"");
+	return r;  
+  }
+
+
 function addInMenus(nodes) {
 	
 		var descList = $("#description-list");
@@ -101,8 +119,8 @@ function addInMenus(nodes) {
 			descList.append("<option value=\"\" selected=\"selected\">Sélectionner un élément</option>");
 		
 		nodes.sort(function(a, b) {
-			var A = a.name;
-			var B = b.name;
+			var A = normalizeString(a.name);
+			var B = normalizeString(b.name);
 			return (A < B) ? -1 : (A > B) ? 1 : 0;
 		});
 		
