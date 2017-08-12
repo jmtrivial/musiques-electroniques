@@ -433,6 +433,8 @@ d3.json("electronique.json", function(error, graph) {
 	listReferences = function(refs, refsTitles, logHistory = true) {
 		clearPanel();
 		
+		setBackground("");
+		
 		$("#description-complete").append("<h3>Liste des références et liens</h3>");
 		
 		groups = {};
@@ -467,6 +469,15 @@ d3.json("electronique.json", function(error, graph) {
 		}
 	}
 	
+	setBackground = function (background) {
+		if (!background)
+			$("body").css('background-image', '');
+		else
+			$("body").css('background-image', 'linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), url(' + background + ')');
+		
+		
+	}
+	
 	setSeletedElement = function (idElement, logHistory = true) {
 		/* affichage latéral */
 		$("#description-list").val(idElement);  
@@ -479,6 +490,8 @@ d3.json("electronique.json", function(error, graph) {
 		else {
 			activateNode(nodeById["$"+idElement]);
 		}
+		
+		setBackground(nodeById["$"+idElement].background);
 		
 		// changement de l'adresse
 		if (idElement == "") {
@@ -537,8 +550,13 @@ d3.json("electronique.json", function(error, graph) {
 		if (n.illustrationImage)
 			$("#description-complete").append("<div><img class=\"img-rounded img-responsive\" src=\"" + n.illustrationImage + "\" alt=\"Illustration " + n.name + "\" /></div>");
 		
-		if (n.illustrationVideo) 
+		if (n.illustrationVideo && !n.illustrationVideo2) 
 			$("#description-complete").append("<div class=\"videowrapper\">" +  n.illustrationVideo + "</div>");
+
+		if (n.illustrationVideo && n.illustrationVideo2) {
+			$("#description-complete").append("<div class=\"divider\"><div class=\"videowrapper\">" +  n.illustrationVideo + "</div></div>");
+			$("#description-complete").append("<div class=\"divider\"><div class=\"videowrapper\">" +  n.illustrationVideo2 + "</div></div>");
+		}
 
 		
 		var hasAdjNodes = false;
