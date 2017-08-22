@@ -393,30 +393,40 @@ d3.json("electronique.json", function(error, graph) {
 	}
 	
 	var refToString = function(lr) {
+		
+		var commentaire = "";
+		if (lr.commentaire)
+			commentaire = " " + lr.commentaire;
 			
 		if (lr.type == "book") {
 			if (lr.url)
-				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em><a href=\"" + lr.url + "\">" + lr.title + "</a></em>, " + lr.editor + ", " + lr.date + "</li>";
+				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em><a href=\"" + lr.url + "\">" + lr.title + "</a></em>, " + lr.editor + ", " + lr.date + "." + commentaire + "</li>";
 			else
-				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em>" + lr.title + "</em>, " + lr.editor + ", " + lr.date + "</li>";
+				return "<li><span class=\"glyphicon glyphicon-book\" aria-hidden=\"true\"></span> " + lr.author + ", <em>" + lr.title + "</em>, " + lr.editor + ", " + lr.date + "." + commentaire + "</li>";
+		}
+		else if (lr.type == "documentaire") {
+			var d = "";
+			if (lr.date)
+				d = ", " + lr.date;
+			return "<li><a title=\"documentaire\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "podcast") {
 			var d = "";
 			if (lr.date)
 				d = ", " + lr.date;
-			return "<li><a title=\"podcast\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "</li>";
+			return "<li><a title=\"podcast\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "website") {
-			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> " + lr.title + "</a></li>";
+			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "conference") {
-			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "</li>";
+			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "discogs") {
-			return "<li><a title=\"discogs\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span> " + lr.title + "</a> sur Discogs</li>";
+			return "<li><a title=\"discogs\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span> " + lr.title + "</a> sur Discogs." + commentaire + "</li>";
 		}
 		else {
-			return "<li>" + lr.title + "</li>";
+			return "<li>" + lr.title + "." + commentaire + "</li>";
 		}	
 	}
 
