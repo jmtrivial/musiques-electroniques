@@ -221,7 +221,7 @@ d3.json("electronique.json", function(error, graph) {
 
 	var simulation = d3.forceSimulation()
 	.force('link', d3.forceLink().id(d => d.id))
-	.force('charge', d3.forceManyBody().strength(-700));
+	.force('charge', d3.forceManyBody().strength(-500));
 
 
 	const svg = d3.select('#graph').append('svg');
@@ -416,11 +416,14 @@ d3.json("electronique.json", function(error, graph) {
 				d = ", " + lr.date;
 			return "<li><a title=\"podcast\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-play-circle\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + d + "." + commentaire + "</li>";
 		}
+		else if (lr.type == "graphique") {
+			return "<li><a title=\"graphique\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + "." + commentaire + "</li>";
+		}
 		else if (lr.type == "website") {
 			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-globe\" aria-hidden=\"true\"></span> " + lr.title + "</a>" + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "conference") {
-			return "<li><a title=\"site internet\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "." + commentaire + "</li>";
+			return "<li><a title=\"conference\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> " + lr.title + "</a>, " + lr.author + "." + commentaire + "</li>";
 		}
 		else if (lr.type == "discogs") {
 			return "<li><a title=\"discogs\" href=\"" + lr.url + "\"><span class=\"glyphicon glyphicon-cd\" aria-hidden=\"true\"></span> " + lr.title + "</a> sur Discogs." + commentaire + "</li>";
